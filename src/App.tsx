@@ -1,7 +1,8 @@
+import { Airdraw } from './components/airdraw'
 import './style.css'
 
 function App() {
-  return <div>Airdraw</div>
+  return <Airdraw />
 }
 
 export default App
