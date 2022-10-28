@@ -6,9 +6,14 @@ const { createTheme, styled } = createStitches({
   },
   theme: {
     colors: {
-      panel:'#fefefe',
+      panel: '#fefefe',
       canvas: 'rgb(248, 249, 250)',
-      text:'#33333'
+      text: '#33333',
+    },
+    space: {
+      0: '2px',
+      1: '3px',
+      2: '4px',
     },
   },
 })
