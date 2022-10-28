@@ -1,8 +1,15 @@
+import React from 'react'
 import { useTheme } from '../../hooks'
 import { Canvas } from '../canvas'
 
-export const Renderer = () => {
+interface RendererProps<T extends {}, M = any> {
+  id?: string
+}
+
+export const Renderer: React.FC<RendererProps<{}, Record<string, unknown>>> = ({
+  id,
+}) => {
   useTheme()
 
-  return <Canvas />
+  return <Canvas id={id} />
 }

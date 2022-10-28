@@ -6,6 +6,7 @@ const { createTheme, styled } = createStitches({
   },
   theme: {
     colors: {
+      panel:'#fefefe',
       canvas: 'rgb(248, 249, 250)',
     },
   },
@@ -13,6 +14,7 @@ const { createTheme, styled } = createStitches({
 
 export const dark = createTheme({
   colors: {
+    panel: '#363D44',
     canvas: '#212529',
   },
 })
