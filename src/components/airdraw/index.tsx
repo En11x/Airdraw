@@ -9,17 +9,27 @@ interface AirdrawProps {
   id?: string
   readonly?: boolean
   showMenu?: boolean
+  showStyles?: boolean
 }
 
 export const Airdraw = memo(
-  ({ id, readonly = false, showMenu = true }: AirdrawProps) => {
+  ({
+    id,
+    readonly = false,
+    showMenu = true,
+    showStyles = true,
+  }: AirdrawProps) => {
     return (
       <StyledLayout>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Renderer id={id} />
         </ErrorBoundary>
         <StyledUI>
-          {/* <TopPanel readonly={readonly} showMenu={showMenu} /> */}
+          <TopPanel
+            readonly={readonly}
+            showMenu={showMenu}
+            showStyles={showStyles}
+          />
         </StyledUI>
       </StyledLayout>
     )
