@@ -3,6 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Renderer } from '../renderer'
 import { ErrorFallback } from '../error-fallback'
 import { TopPanel } from '../top-panel'
+import { memo } from 'react'
 
 interface AirdrawProps {
   id?: string
@@ -10,22 +11,20 @@ interface AirdrawProps {
   showMenu?: boolean
 }
 
-export const Airdraw = ({
-  id,
-  readonly = false,
-  showMenu = true,
-}: AirdrawProps) => {
-  return (
-    <StyledLayout>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Renderer id={id} />
-      </ErrorBoundary>
-      <StyledUI>
-        <TopPanel readonly={readonly} showMenu={showMenu} />
-      </StyledUI>
-    </StyledLayout>
-  )
-}
+export const Airdraw = memo(
+  ({ id, readonly = false, showMenu = true }: AirdrawProps) => {
+    return (
+      <StyledLayout>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Renderer id={id} />
+        </ErrorBoundary>
+        <StyledUI>
+          {/* <TopPanel readonly={readonly} showMenu={showMenu} /> */}
+        </StyledUI>
+      </StyledLayout>
+    )
+  }
+)
 
 const StyledLayout = styled('div', {
   position: 'absolute',

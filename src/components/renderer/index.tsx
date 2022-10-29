@@ -1,15 +1,18 @@
 import React from 'react'
-import { useTheme } from '../../hooks'
+import { useAirTheme } from '../../hooks'
+import { AirTheme } from '../../types'
 import { Canvas } from '../canvas'
 
 interface RendererProps<T extends {}, M = any> {
   id?: string
+  theme?:Partial<AirTheme>
 }
 
 export const Renderer: React.FC<RendererProps<{}, Record<string, unknown>>> = ({
-  id,
+  id = 'airdraw',
+  theme
 }) => {
-  useTheme()
+  useAirTheme(theme,'#'+id)
 
   return <Canvas id={id} />
 }
