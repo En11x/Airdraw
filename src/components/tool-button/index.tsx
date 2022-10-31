@@ -34,7 +34,9 @@ export const StyledToolButtonInner = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
   boxSizing: 'border-box',
-  borderRadius:'$2'
+  borderRadius:'$2',
+  margin:0,
+  border:'1px solid transparent'
 })
 
 export const StyledToolButton = styled('button', {

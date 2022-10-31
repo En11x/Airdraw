@@ -3,7 +3,8 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Renderer } from '../renderer'
 import { ErrorFallback } from '../error-fallback'
 import { TopPanel } from '../top-panel'
-import { memo } from 'react'
+import { memo, useLayoutEffect, useRef } from 'react'
+import { ContainerContext } from '../../hooks'
 
 interface AirdrawProps {
   id?: string
@@ -19,19 +20,28 @@ export const Airdraw = memo(
     showMenu = true,
     showStyles = true,
   }: AirdrawProps) => {
+    const airWrapper = useRef<HTMLDivElement>(null)
+
+    useLayoutEffect(() => {
+      const ele = airWrapper.current
+      if (!ele) return
+    }, [])
+
     return (
-      <StyledLayout>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Renderer id={id} />
-        </ErrorBoundary>
-        <StyledUI>
-          <TopPanel
-            readonly={readonly}
-            showMenu={showMenu}
-            showStyles={showStyles}
-          />
-        </StyledUI>
-      </StyledLayout>
+      <ContainerContext.Provider value={airWrapper}>
+        <StyledLayout ref={airWrapper}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Renderer id={id} />
+          </ErrorBoundary>
+          <StyledUI>
+            <TopPanel
+              readonly={readonly}
+              showMenu={showMenu}
+              showStyles={showStyles}
+            />
+          </StyledUI>
+        </StyledLayout>
+      </ContainerContext.Provider>
     )
   }
 )
@@ -56,4 +66,5 @@ const StyledUI = styled('div', {
   height: '100%',
   width: '100%',
   padding: '8px 8px 0 8px',
+  zIndex:2
 })

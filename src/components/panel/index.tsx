@@ -1,4 +1,4 @@
-import { styled } from '../../styles'
+import { styled } from '~/styles'
 
 export const Panel = styled('div', {
   backgroundColor: '$panel',
@@ -8,6 +8,7 @@ export const Panel = styled('div', {
   overflow: 'hidden',
   boxShadow: '$panel',
   border: '1px solid $panelContrast',
+  gap:0,
   variants: {
     side: {
       left: {
