@@ -5,6 +5,7 @@ import { ErrorFallback } from '../error-fallback'
 import { TopPanel } from '../top-panel'
 import { memo, useLayoutEffect, useRef } from 'react'
 import { ContainerContext } from '../../hooks'
+import { useStylesheet } from '~/hooks/useStylesheet'
 
 interface AirdrawProps {
   id?: string
@@ -30,6 +31,7 @@ export const Airdraw = memo(
     return (
       <ContainerContext.Provider value={airWrapper}>
         <StyledLayout ref={airWrapper}>
+          <OneOff />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Renderer id={id} />
           </ErrorBoundary>
@@ -45,6 +47,12 @@ export const Airdraw = memo(
     )
   }
 )
+
+const OneOff = memo(() => {
+  useStylesheet()
+
+  return null
+})
 
 const StyledLayout = styled('div', {
   position: 'absolute',
@@ -66,5 +74,5 @@ const StyledUI = styled('div', {
   height: '100%',
   width: '100%',
   padding: '8px 8px 0 8px',
-  zIndex:2
+  zIndex: 2,
 })

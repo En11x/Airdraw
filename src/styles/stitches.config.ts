@@ -29,6 +29,11 @@ const { createTheme, styled } = createStitches({
       0: '2px',
       1: '3px',
       2: '4px',
+      3: '8px',
+      4: '12px',
+      5: '16px',
+      6: '32px',
+      7: '48px',
     },
     fontSizes: {
       0: '10px',
@@ -36,6 +41,11 @@ const { createTheme, styled } = createStitches({
       2: '13px',
       3: '16px',
       4: '18px',
+    },
+    fonts: {
+      ui: '"Recursive", system-ui, sans-serif',
+      body: '"Recursive", system-ui, sans-serif',
+      mono: '"Recursive Mono", monospace',
     },
     radii: {
       0: '2px',
