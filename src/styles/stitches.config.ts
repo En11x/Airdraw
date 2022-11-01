@@ -65,11 +65,19 @@ const { createTheme, styled } = createStitches({
 
 export const dark = createTheme({
   colors: {
-    panel: '#363D44',
-    canvas: '#212529',
-    text: '#f8f9fa',
-    panelContrast: '#49555f',
+    bounds: 'rgba(38, 150, 255, 1.000)',
+    boundsBg: 'rgba(38, 150, 255, 0.05)',
     hover: '#444A50',
+    overlay: 'rgba(0, 0, 0, 0.15)',
+    overlayContrast: 'rgba(255, 255, 255, 0.15)',
+    panel: '#363D44',
+    panelContrast: '#49555f',
+    selected: 'rgba(38, 150, 255, 1.000)',
+    selectedContrast: '#fefefe',
+    text: '#f8f9fa',
+    tooltip: '#1d1d1d',
+    tooltipContrast: '#ffffff',
+    canvas: '#212529',
   },
   shadows: {
     2: '0px 1px 1px rgba(0, 0, 0, 0.24)',

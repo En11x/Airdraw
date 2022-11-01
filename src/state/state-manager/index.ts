@@ -64,6 +64,7 @@ export class StateManager<T extends Record<string, any>> {
   private applyPatch = (patch: Patch<T>, id?: string) => {
     const next = Utils.deepMerge(this._state, patch)
     this._state = next
+    this.store.setState(this._state, true)
 
     return this
   }

@@ -1,10 +1,10 @@
-import { styled } from '../../styles'
+import { dark, styled } from '../../styles'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Renderer } from '../renderer'
 import { ErrorFallback } from '../error-fallback'
 import { TopPanel } from '../top-panel'
-import { memo, useLayoutEffect, useRef, useState } from 'react'
-import { AirdrawAppContext, ContainerContext } from '../../hooks'
+import { memo, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { AirdrawAppContext, ContainerContext, useAirdrawApp } from '../../hooks'
 import { useStylesheet } from '~/hooks/useStylesheet'
 import { AirCallbacks, AirdrawApp } from '~/state'
 
@@ -57,19 +57,38 @@ const Innerdraw = memo(function Innerdraw({
   showMenu,
   showStyles,
 }: InnerdrawProps) {
+  const app = useAirdrawApp()
   const airWrapper = useRef<HTMLDivElement>(null)
+
+  const state = app.useStore()
+  const { settings } = state
+
+  const theme = useMemo(() => {
+    const { isDarkMode } = settings
+    if (isDarkMode) {
+      return {
+        background: '#212529',
+      }
+    }
+    return {}
+  }, [settings.isDarkMode])
 
   useLayoutEffect(() => {
     const ele = airWrapper.current
     if (!ele) return
-  }, [])
+    if (settings.isDarkMode) {
+      ele.classList.add(dark)
+    } else {
+      ele.classList.remove(dark)
+    }
+  }, [settings.isDarkMode])
 
   return (
     <ContainerContext.Provider value={airWrapper}>
       <StyledLayout ref={airWrapper}>
         <OneOff />
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Renderer id={id} />
+          <Renderer id={id} theme={theme} />
         </ErrorBoundary>
         <StyledUI>
           <TopPanel

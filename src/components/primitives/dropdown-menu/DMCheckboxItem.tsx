@@ -1,5 +1,6 @@
 import { CheckboxItem } from '@radix-ui/react-dropdown-menu'
 import { PropsWithChildren } from 'react'
+import { preventEvent } from '~/events'
 import { RowButton } from '../row-button'
 
 interface DMCheckboxItemProps {
@@ -21,6 +22,7 @@ export const DMCheckboxItem = ({
       id={id}
       asChild
       checked={checked}
+      onSelect={preventEvent}
       dir="ltr"
       onCheckedChange={onCheckedChange}
     >
