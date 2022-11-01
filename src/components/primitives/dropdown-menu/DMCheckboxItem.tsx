@@ -6,16 +6,24 @@ interface DMCheckboxItemProps {
   id?: string
   checked: boolean
   kbd?: string
+  onCheckedChange: (isChecked: boolean | string) => void
 }
 
 export const DMCheckboxItem = ({
   id,
   checked,
   kbd,
+  onCheckedChange,
   children,
 }: PropsWithChildren<DMCheckboxItemProps>) => {
   return (
-    <CheckboxItem id={id} asChild checked={checked} dir="ltr">
+    <CheckboxItem
+      id={id}
+      asChild
+      checked={checked}
+      dir="ltr"
+      onCheckedChange={onCheckedChange}
+    >
       <RowButton kbd={kbd} hasIndicator>
         {children}
       </RowButton>

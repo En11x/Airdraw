@@ -31,7 +31,7 @@ export const Menu = React.memo(function ({ readonly }: MenuProps) {
         align="start"
       >
         <DMSubMenu label="File..." id="Air-Menu-File">
-          <DMItem id="Air-Menu-File-New-Project">New Project</DMItem>
+          <DMItem id="Air-Menu-File-New-Project" kbd='#N'>New Project</DMItem>
         </DMSubMenu>
         <Divider />
         <PreferencesMenu />
