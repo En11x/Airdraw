@@ -1,6 +1,8 @@
 import { Patch } from '~/types'
 import { deepCopy } from '~/utils/deepCopy'
 import { Utils } from '~/utils'
+import create, { UseBoundStore } from 'zustand'
+import createVanilla, { StoreApi } from 'zustand/vanilla'
 
 export class StateManager<T extends Record<string, any>> {
   /**
@@ -18,11 +20,23 @@ export class StateManager<T extends Record<string, any>> {
    */
   private initialState: T
 
+  /**
+   * a zustand store
+   */
+  private store: StoreApi<T>
+
+  /**
+   * a react hook store
+   *
+   */
+  public readonly useStore: UseBoundStore<StoreApi<T>>
+
   constructor(initialState: T, id?: string) {
     this._idbId = id
-    console.log(deepCopy(initialState),'?initialState')
     this._state = deepCopy(initialState)
     this.initialState = deepCopy(initialState)
+    this.store = createVanilla(() => this._state)
+    this.useStore = create(this.store)
   }
 
   /**
@@ -39,7 +53,7 @@ export class StateManager<T extends Record<string, any>> {
    * apply a patch to the current state
    */
   patchState = (patch: Patch<T>, id?: string): this => {
-    this.applyPatch(patch,id)
+    this.applyPatch(patch, id)
 
     return this
   }
@@ -48,9 +62,9 @@ export class StateManager<T extends Record<string, any>> {
    * apply a patch to the current state
    */
   private applyPatch = (patch: Patch<T>, id?: string) => {
-    const next = Utils.deepMerge(this._state,patch)
+    const next = Utils.deepMerge(this._state, patch)
     this._state = next
-    console.log(this._state,'?')
+
     return this
   }
 }
