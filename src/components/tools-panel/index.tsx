@@ -1,6 +1,7 @@
 import { FocusEventHandler, memo } from 'react'
 import { styled } from '~/styles'
 import { ActionButton } from './ActionButton'
+import { DeleteButton } from './DeleteButton'
 import { PrimaryTools } from './PrimaryTools'
 
 export interface ToolsPanelProps {
@@ -17,6 +18,7 @@ function _ToolsPanel({ onBlur }: ToolsPanelProps) {
           <StyledPrimaryTools>
             <ActionButton />
             <PrimaryTools />
+            <DeleteButton />
           </StyledPrimaryTools>
         </StyledCenterWrap>
       </StyledToolsPanelContainer>

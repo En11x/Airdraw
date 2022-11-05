@@ -7,7 +7,7 @@ const commandKey = () => (Utils.isDarwin() ? '⌘' : 'Ctrl')
 export const Kbd = ({
   variant,
   children,
-}: PropsWithChildren<{ variant: 'menu' }>) => {
+}: PropsWithChildren<{ variant: 'menu' | 'tooltip' }>) => {
   return (
     <StyledKbd variant={variant}>
       {children
@@ -44,6 +44,15 @@ const StyledKbd = styled('kbd', {
   variants: {
     variant: {
       menu: {},
+      tooltip: {
+        '& > span': {
+          color: '$tooltipContrast',
+          background: '$overlayContrast',
+          boxShadow: '$key',
+          width: '20px',
+          height: '20px',
+        },
+      },
     },
   },
 })

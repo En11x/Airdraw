@@ -1,12 +1,18 @@
-import { CursorArrowIcon } from '@radix-ui/react-icons'
+import { CursorArrowIcon, Pencil1Icon } from '@radix-ui/react-icons'
 import { memo } from 'react'
 import { styled } from '~/styles'
 import { Panel } from '../panel'
+import { ToolButtonWithTooltip } from '../tool-button'
 
 export const PrimaryTools = memo(function PrimaryTools() {
   return (
     <StyledPanel side="center">
-      <CursorArrowIcon />
+      <ToolButtonWithTooltip label="Select" kbd="1">
+        <CursorArrowIcon />
+      </ToolButtonWithTooltip>
+      <ToolButtonWithTooltip label="Draw" kbd="2">
+        <Pencil1Icon />
+      </ToolButtonWithTooltip>
     </StyledPanel>
   )
 })

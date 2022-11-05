@@ -13,6 +13,9 @@ const { createTheme, styled } = createStitches({
       hover: '#ececec',
       selected: 'rgba(66, 133, 244, 1.000)',
       selectedContrast: '#fefefe',
+      tooltip: '#1d1d1d',
+      tooltipContrast: '#ffffff',
+      overlayContrast: 'rgba(255, 255, 255, 0.15)',
     },
     shadows: {
       2: '0px 1px 1px rgba(0, 0, 0, 0.14)',

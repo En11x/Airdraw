@@ -10,8 +10,9 @@ export interface ToolButtonProps {
   onClick?: () => void
 }
 
-export interface ToolButtonWithTooltipProps {
+export interface ToolButtonWithTooltipProps extends ToolButtonProps {
   label: string
+  kbd?: string
 }
 
 export const ToolButton = React.forwardRef<
@@ -36,8 +37,17 @@ export const ToolButton = React.forwardRef<
 ////width tooltip
 export const ToolButtonWithTooltip = ({
   label,
-}: ToolButtonWithTooltipProps) => {
-  return <Tooltip label={label}></Tooltip>
+  kbd,
+  children,
+  ...rest
+}: PropsWithChildren<ToolButtonWithTooltipProps>) => {
+  return (
+    <Tooltip label={label} kbd={kbd}>
+      <ToolButton {...rest} variant="primary">
+        {children}
+      </ToolButton>
+    </Tooltip>
+  )
 }
 
 export const StyledToolButtonInner = styled('div', {
