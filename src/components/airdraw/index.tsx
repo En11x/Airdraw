@@ -6,6 +6,7 @@ import { AirdrawAppContext, ContainerContext, useAirdrawApp } from '../../hooks'
 import { dark, styled } from '../../styles'
 import { ErrorFallback } from '../error-fallback'
 import { Renderer } from '../renderer'
+import { ToolsPanel } from '../tools-panel'
 import { TopPanel } from '../top-panel'
 
 interface AirdrawProps extends AirCallbacks {
@@ -95,6 +96,8 @@ const Innerdraw = memo(function Innerdraw({
             showMenu={showMenu}
             showStyles={showStyles}
           />
+          <StyledSpacer />
+          <ToolsPanel />
         </StyledUI>
       </StyledLayout>
     </ContainerContext.Provider>
@@ -128,4 +131,11 @@ const StyledUI = styled('div', {
   width: '100%',
   padding: '8px 8px 0 8px',
   zIndex: 2,
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
+})
+
+const StyledSpacer = styled('div', {
+  flexGrow: 2,
 })

@@ -11,6 +11,9 @@ export const Panel = styled('div', {
   gap: 0,
   variants: {
     side: {
+      center: {
+        borderRadius: 9,
+      },
       left: {
         padding: 0,
         borderTop: 0,

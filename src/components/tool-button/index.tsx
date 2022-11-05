@@ -1,12 +1,17 @@
 import React, { PropsWithChildren } from 'react'
 import { styled } from '../../styles'
 import { breakpoints } from '../../styles/breakpoints'
+import { Tooltip } from '../tooltip'
 
 export interface ToolButtonProps {
   id?: string
   variant?: 'primary' | 'icon' | 'text' | 'circle'
   isActive?: boolean
   onClick?: () => void
+}
+
+export interface ToolButtonWithTooltipProps {
+  label: string
 }
 
 export const ToolButton = React.forwardRef<
@@ -27,6 +32,13 @@ export const ToolButton = React.forwardRef<
     </StyledToolButton>
   )
 })
+
+////width tooltip
+export const ToolButtonWithTooltip = ({
+  label,
+}: ToolButtonWithTooltipProps) => {
+  return <Tooltip label={label}></Tooltip>
+}
 
 export const StyledToolButtonInner = styled('div', {
   position: 'relative',
@@ -82,7 +94,21 @@ export const StyledToolButton = styled('button', {
           gap: '$3',
         },
       },
-      circle: {},
+      circle: {
+        padding: 0,
+        height: 32,
+        width: 32,
+        border: 'none',
+        [`& ${StyledToolButtonInner}`]: {
+          border: '1px solid $panelContrast',
+          borderRadius: '100%',
+          boxShadow: '$panel',
+        },
+        [`& ${StyledToolButtonInner} > svg`]: {
+          width: 14,
+          height: 14,
+        },
+      },
     },
     isActive: {
       true: {},
