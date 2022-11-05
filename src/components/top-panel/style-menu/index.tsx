@@ -28,6 +28,7 @@ import {
   AlignStyle,
   ColorStyle,
   DashStyle,
+  FontStyle,
   SizeStyle,
 } from '~/types'
 
@@ -84,6 +85,10 @@ export const StyleMenu = memo(() => {
 
   const handleToggleTextAlign = useCallback((align: string) => {
     app.style({ textAlign: align as AlignStyle })
+  }, [])
+
+  const handleToggleFontStyle = useCallback((font: string) => {
+    app.style({ font: font as FontStyle })
   }, [])
 
   useEffect(() => {
@@ -198,6 +203,26 @@ export const StyleMenu = memo(() => {
           <>
             <Divider />
             <StyledRow variant="tall">
+              <span>Font</span>
+              <StyledGroup
+                dir="ltr"
+                value={displayedStyle.font}
+                onValueChange={handleToggleFontStyle}
+              >
+                {Object.values(FontStyle).map((style) => (
+                  <DMRadioItem
+                    key={style}
+                    value={style}
+                    isActive={displayedStyle.font === style}
+                    onSelect={preventEvent}
+                    id={`Air-style-Font-${style}`}
+                  >
+                    <FontIcon fontStyle={style}>Aa</FontIcon>
+                  </DMRadioItem>
+                ))}
+              </StyledGroup>
+            </StyledRow>
+            <StyledRow variant="tall">
               <span>Align</span>
               <StyledGroup
                 dir="ltr"
@@ -282,4 +307,29 @@ const ColorGrid = styled('div', {
   display: 'grid',
   gridTemplateColumns: 'repeat(4, auto)',
   gap: 0,
+})
+
+const FontIcon = styled('div', {
+  width: 32,
+  height: 32,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: '$3',
+  variants: {
+    fontStyle: {
+      [FontStyle.Script]: {
+        fontFamily: 'Caveat Brush',
+      },
+      [FontStyle.Sans]: {
+        fontFamily: 'Recursive',
+      },
+      [FontStyle.Serif]: {
+        fontFamily: 'Georgia',
+      },
+      [FontStyle.Mono]: {
+        fontFamily: 'Recursive Mono',
+      },
+    },
+  },
 })

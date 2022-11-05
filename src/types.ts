@@ -10,6 +10,7 @@ export type ShapeStyles = {
   size: SizeStyle
   isFilled?: boolean
   textAlign?: AlignStyle
+  font?: FontStyle
 }
 
 //the app store
@@ -59,6 +60,13 @@ export enum AlignStyle {
   Middle = 'middle',
   End = 'end',
   Justify = 'justify',
+}
+
+export enum FontStyle {
+  Script = 'script',
+  Sans = 'sans',
+  Serif = 'serif',
+  Mono = 'mono',
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
