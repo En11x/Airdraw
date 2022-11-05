@@ -39,7 +39,7 @@ function useTheme<T extends AnyTheme>(
         document.head.removeChild(style)
       }
     }
-  }, [prefix, theme, selector])
+  }, [prefix, selector, theme])
 }
 
 //create style ele
@@ -80,7 +80,7 @@ export const AIR_CSS = css`
     height: 100%;
     max-width: 100%;
     max-height: 100%;
-    background-color:var(--air-background)
+    background-color: var(--air-background);
   }
   .air-canvas {
     position: absolute;

@@ -1,12 +1,12 @@
-import { dark, styled } from '../../styles'
-import { ErrorBoundary } from 'react-error-boundary'
-import { Renderer } from '../renderer'
-import { ErrorFallback } from '../error-fallback'
-import { TopPanel } from '../top-panel'
 import { memo, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { AirdrawAppContext, ContainerContext, useAirdrawApp } from '../../hooks'
+import { ErrorBoundary } from 'react-error-boundary'
 import { useStylesheet } from '~/hooks/useStylesheet'
 import { AirCallbacks, AirdrawApp } from '~/state'
+import { AirdrawAppContext, ContainerContext, useAirdrawApp } from '../../hooks'
+import { dark, styled } from '../../styles'
+import { ErrorFallback } from '../error-fallback'
+import { Renderer } from '../renderer'
+import { TopPanel } from '../top-panel'
 
 interface AirdrawProps extends AirCallbacks {
   id?: string
