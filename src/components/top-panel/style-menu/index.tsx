@@ -1,4 +1,10 @@
 import { Item, RadioGroup, Root, Trigger } from '@radix-ui/react-dropdown-menu'
+import {
+  TextAlignCenterIcon,
+  TextAlignJustifyIcon,
+  TextAlignLeftIcon,
+  TextAlignRightIcon,
+} from '@radix-ui/react-icons'
 import { memo, useCallback, useEffect, useState } from 'react'
 import { Divider } from '~/components/primitives/divider'
 import { DMCheckboxItem } from '~/components/primitives/dropdown-menu/DMCheckboxItem'
@@ -17,7 +23,13 @@ import { preventEvent } from '~/events'
 import { useAirdrawApp } from '~/hooks'
 import { fills, strokes } from '~/state/shared'
 import { styled } from '~/styles'
-import { AIRSnapshot, ColorStyle, DashStyle, SizeStyle } from '~/types'
+import {
+  AIRSnapshot,
+  AlignStyle,
+  ColorStyle,
+  DashStyle,
+  SizeStyle,
+} from '~/types'
 
 const themeSelector = (a: AIRSnapshot) =>
   a.settings.isDarkMode ? 'dark' : 'light'
@@ -37,6 +49,13 @@ const SIZE_ICONS = {
   [SizeStyle.Small]: <SizeSmallIcon />,
   [SizeStyle.Medium]: <SizeMediumIcon />,
   [SizeStyle.Large]: <SizeLargeIcon />,
+}
+
+const ALIGN_ICONS = {
+  [AlignStyle.Start]: <TextAlignLeftIcon />,
+  [AlignStyle.Middle]: <TextAlignCenterIcon />,
+  [AlignStyle.End]: <TextAlignRightIcon />,
+  [AlignStyle.Justify]: <TextAlignJustifyIcon />,
 }
 
 export const StyleMenu = memo(() => {
@@ -61,6 +80,10 @@ export const StyleMenu = memo(() => {
 
   const handleToggleKeepOpen = useCallback((open: boolean) => {
     app.setSetting('keepStyleMenuOpen', open)
+  }, [])
+
+  const handleToggleTextAlign = useCallback((align: string) => {
+    app.style({ textAlign: align as AlignStyle })
   }, [])
 
   useEffect(() => {
@@ -171,6 +194,31 @@ export const StyleMenu = memo(() => {
             ))}
           </StyledGroup>
         </StyledRow>
+        {
+          <>
+            <Divider />
+            <StyledRow variant="tall">
+              <span>Align</span>
+              <StyledGroup
+                dir="ltr"
+                value={displayedStyle.textAlign}
+                onValueChange={handleToggleTextAlign}
+              >
+                {Object.values(AlignStyle).map((style) => (
+                  <DMRadioItem
+                    key={style}
+                    value={style}
+                    isActive={displayedStyle.textAlign === style}
+                    onSelect={preventEvent}
+                    id={`Air-style-TextAlign-${style}`}
+                  >
+                    {ALIGN_ICONS[style]}
+                  </DMRadioItem>
+                ))}
+              </StyledGroup>
+            </StyledRow>
+          </>
+        }
         <Divider />
         <DMCheckboxItem
           id="Air-style-kepp-open"

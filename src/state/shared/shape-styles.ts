@@ -23,6 +23,7 @@ export const defaultStyle: ShapeStyles = {
   color: ColorStyle.Black,
   dash: DashStyle.Draw,
   size: SizeStyle.Small,
+  isFilled: false,
 }
 
 export const fills: Record<Theme, Record<ColorStyle, string>> = {

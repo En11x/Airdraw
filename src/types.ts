@@ -9,6 +9,7 @@ export type ShapeStyles = {
   dash: DashStyle
   size: SizeStyle
   isFilled?: boolean
+  textAlign?: AlignStyle
 }
 
 //the app store
@@ -51,6 +52,13 @@ export enum SizeStyle {
   Small = 'small',
   Medium = 'medium',
   Large = 'large',
+}
+
+export enum AlignStyle {
+  Start = 'start',
+  Middle = 'middle',
+  End = 'end',
+  Justify = 'justify',
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
