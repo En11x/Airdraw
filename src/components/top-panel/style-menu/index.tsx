@@ -1,23 +1,30 @@
-import { Item, Root, Trigger } from '@radix-ui/react-dropdown-menu'
+import { Item, RadioGroup, Root, Trigger } from '@radix-ui/react-dropdown-menu'
 import { memo, useCallback, useEffect, useState } from 'react'
+import { Divider } from '~/components/primitives/divider'
 import { DMCheckboxItem } from '~/components/primitives/dropdown-menu/DMCheckboxItem'
 import { DMContent } from '~/components/primitives/dropdown-menu/DMContent'
+import { DMRadioItem } from '~/components/primitives/dropdown-menu/DMRadioItem'
 import { CircleIcon } from '~/components/primitives/icons'
 import { DashDashedIcon } from '~/components/primitives/icons/DashDashedIcon'
 import { DashDottedIcon } from '~/components/primitives/icons/DashDottedIcon'
 import { DashDrawIcon } from '~/components/primitives/icons/DashDrawIcon'
 import { DashSolidIcon } from '~/components/primitives/icons/DashSolidIcon'
+import { SizeLargeIcon } from '~/components/primitives/icons/SizeLargeIcon'
+import { SizeMediumIcon } from '~/components/primitives/icons/SizeMediumIcon'
+import { SizeSmallIcon } from '~/components/primitives/icons/SizeSmallIcon'
 import { ToolButton } from '~/components/tool-button'
 import { preventEvent } from '~/events'
 import { useAirdrawApp } from '~/hooks'
 import { fills, strokes } from '~/state/shared'
 import { styled } from '~/styles'
-import { AIRSnapshot, ColorStyle, DashStyle } from '~/types'
+import { AIRSnapshot, ColorStyle, DashStyle, SizeStyle } from '~/types'
 
 const themeSelector = (a: AIRSnapshot) =>
   a.settings.isDarkMode ? 'dark' : 'light'
 
 const currentStyleSelector = (a: AIRSnapshot) => a.appState.currentStyle
+
+const keepOpenSelector = (a: AIRSnapshot) => a.settings.keepStyleMenuOpen
 
 const DASH_ICONS = {
   [DashStyle.Draw]: <DashDrawIcon />,
@@ -26,16 +33,34 @@ const DASH_ICONS = {
   [DashStyle.Solid]: <DashSolidIcon />,
 }
 
+const SIZE_ICONS = {
+  [SizeStyle.Small]: <SizeSmallIcon />,
+  [SizeStyle.Medium]: <SizeMediumIcon />,
+  [SizeStyle.Large]: <SizeLargeIcon />,
+}
+
 export const StyleMenu = memo(() => {
   const app = useAirdrawApp()
 
   const theme = app.useStore(themeSelector)
   const currentStyle = app.useStore(currentStyleSelector)
-
+  const keepOpen = app.useStore(keepOpenSelector)
   const [displayedStyle, setDisplayedStyle] = useState(currentStyle)
 
   const handleToggleFilled = useCallback((checked: boolean) => {
     app.style({ isFilled: checked })
+  }, [])
+
+  const handleToggleDash = useCallback((dash: string) => {
+    app.style({ dash: dash as DashStyle })
+  }, [])
+
+  const handleToggleSize = useCallback((size: string) => {
+    app.style({ size: size as SizeStyle })
+  }, [])
+
+  const handleToggleKeepOpen = useCallback((open: boolean) => {
+    app.setSetting('keepStyleMenuOpen', open)
   }, [])
 
   useEffect(() => {
@@ -43,7 +68,7 @@ export const StyleMenu = memo(() => {
   }, [currentStyle])
 
   return (
-    <Root dir="ltr">
+    <Root dir="ltr" open={keepOpen ? true : undefined}>
       <Trigger asChild>
         <ToolButton variant="text">
           Styles
@@ -106,6 +131,55 @@ export const StyleMenu = memo(() => {
         >
           Fill
         </DMCheckboxItem>
+        <StyledRow variant="tall">
+          <span>Dash</span>
+          <StyledGroup
+            dir="ltr"
+            value={displayedStyle.dash}
+            onValueChange={handleToggleDash}
+          >
+            {Object.values(DashStyle).map((style) => (
+              <DMRadioItem
+                key={style}
+                value={style}
+                isActive={displayedStyle.dash === style}
+                id={`Air-Styles-Dash-${style}`}
+                onSelect={preventEvent}
+              >
+                {DASH_ICONS[style]}
+              </DMRadioItem>
+            ))}
+          </StyledGroup>
+        </StyledRow>
+        <StyledRow variant="tall">
+          <span>Size</span>
+          <StyledGroup
+            dir="ltr"
+            value={displayedStyle.size}
+            onValueChange={handleToggleSize}
+          >
+            {Object.values(SizeStyle).map((size) => (
+              <DMRadioItem
+                key={size}
+                value={size}
+                isActive={displayedStyle.size === size}
+                id={`Air-Styles-Dash-${size}`}
+                onSelect={preventEvent}
+              >
+                {SIZE_ICONS[size]}
+              </DMRadioItem>
+            ))}
+          </StyledGroup>
+        </StyledRow>
+        <Divider />
+        <DMCheckboxItem
+          id="Air-style-kepp-open"
+          checked={keepOpen}
+          onCheckedChange={handleToggleKeepOpen}
+          variant="styleMenu"
+        >
+          Keep Open
+        </DMCheckboxItem>
       </DMContent>
     </Root>
   )
@@ -117,6 +191,11 @@ const OverlapIcons = styled('div', {
     gridColumn: 1,
     gridRow: 1,
   },
+})
+
+const StyledGroup = styled(RadioGroup, {
+  display: 'flex',
+  gap: '$1',
 })
 
 const StyledRow = styled('div', {

@@ -39,6 +39,7 @@ export class AirdrawApp extends StateManager<AIRSnapshot> {
   static defaultState: AIRSnapshot = {
     settings: {
       isDarkMode: false,
+      keepStyleMenuOpen: false,
     },
     appState: {
       currentStyle: defaultStyle,

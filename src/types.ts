@@ -7,6 +7,7 @@ export type Patch<T> = Partial<{ [P in keyof T]: Patch<T[P]> }>
 export type ShapeStyles = {
   color: ColorStyle
   dash: DashStyle
+  size: SizeStyle
   isFilled?: boolean
 }
 
@@ -14,6 +15,7 @@ export type ShapeStyles = {
 export interface AIRSnapshot {
   settings: {
     isDarkMode: boolean
+    keepStyleMenuOpen: boolean
   }
   appState: {
     currentStyle: ShapeStyles
@@ -43,6 +45,12 @@ export enum DashStyle {
   Solid = 'solid',
   Dashed = 'dashed',
   Dotted = 'dotted',
+}
+
+export enum SizeStyle {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

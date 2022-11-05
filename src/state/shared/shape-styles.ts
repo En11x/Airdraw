@@ -1,4 +1,4 @@
-import { ColorStyle, DashStyle, ShapeStyles, Theme } from '~/types'
+import { ColorStyle, DashStyle, ShapeStyles, SizeStyle, Theme } from '~/types'
 import { Utils } from '~/utils'
 
 const canvasLight = '#fafafa'
@@ -22,6 +22,7 @@ const colors = {
 export const defaultStyle: ShapeStyles = {
   color: ColorStyle.Black,
   dash: DashStyle.Draw,
+  size: SizeStyle.Small,
 }
 
 export const fills: Record<Theme, Record<ColorStyle, string>> = {
