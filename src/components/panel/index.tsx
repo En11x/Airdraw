@@ -8,7 +8,7 @@ export const Panel = styled('div', {
   overflow: 'hidden',
   boxShadow: '$panel',
   border: '1px solid $panelContrast',
-  gap:0,
+  gap: 0,
   variants: {
     side: {
       left: {
@@ -18,6 +18,14 @@ export const Panel = styled('div', {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 9,
         borderBottomLeftRadius: 0,
+      },
+      right: {
+        padding: 0,
+        borderTop: 0,
+        borderRight: 0,
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 9,
+        borderBottomRightRadius: 0,
       },
     },
   },

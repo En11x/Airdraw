@@ -1,6 +1,8 @@
+import { memo } from 'react'
 import { styled } from '../../styles'
 import { Panel } from '../panel'
 import { Menu } from './menu'
+import { StyleMenu } from './style-menu'
 
 interface TopPanelProps {
   readonly: boolean
@@ -8,7 +10,11 @@ interface TopPanelProps {
   showStyles: boolean
 }
 
-export const TopPanel = ({ readonly, showMenu, showStyles }: TopPanelProps) => {
+export const _TopPanel = ({
+  readonly,
+  showMenu,
+  showStyles,
+}: TopPanelProps) => {
   return (
     <StyledTopPanel>
       {showMenu && (
@@ -17,10 +23,16 @@ export const TopPanel = ({ readonly, showMenu, showStyles }: TopPanelProps) => {
         </Panel>
       )}
       <StyledSpacer />
-      {showStyles && <Panel>右边菜单</Panel>}
+      {showStyles && (
+        <Panel side="right">
+          <StyleMenu />
+        </Panel>
+      )}
     </StyledTopPanel>
   )
 }
+
+export const TopPanel = memo(_TopPanel)
 
 const StyledTopPanel = styled('div', {
   width: '100%',

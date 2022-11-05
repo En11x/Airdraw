@@ -64,8 +64,7 @@ const Innerdraw = memo(function Innerdraw({
   const { settings } = state
 
   const theme = useMemo(() => {
-    const { isDarkMode } = settings
-    if (isDarkMode) {
+    if (settings.isDarkMode) {
       return {
         background: '#212529',
       }

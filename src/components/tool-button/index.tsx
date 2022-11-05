@@ -6,12 +6,13 @@ export interface ToolButtonProps {
   id?: string
   variant?: 'primary' | 'icon' | 'text' | 'circle'
   isActive?: boolean
+  onClick?: () => void
 }
 
 export const ToolButton = React.forwardRef<
   HTMLButtonElement,
   PropsWithChildren<ToolButtonProps>
->(({ id, variant, isActive = false, children, ...rest }, ref) => {
+>(({ id, variant, isActive = false, onClick, children, ...rest }, ref) => {
   return (
     <StyledToolButton
       ref={ref}
@@ -19,6 +20,7 @@ export const ToolButton = React.forwardRef<
       variant={variant}
       isActive={isActive}
       bp={breakpoints}
+      onClick={onClick}
       {...rest}
     >
       <StyledToolButtonInner> {children}</StyledToolButtonInner>
@@ -34,9 +36,12 @@ export const StyledToolButtonInner = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
   boxSizing: 'border-box',
-  borderRadius:'$2',
-  margin:0,
-  border:'1px solid transparent'
+  borderRadius: '$2',
+  margin: 0,
+  border: '1px solid transparent',
+  fontFamily: '$ui',
+  color: 'inherit',
+  userSelect: 'none',
 })
 
 export const StyledToolButton = styled('button', {
@@ -60,8 +65,23 @@ export const StyledToolButton = styled('button', {
       primary: {
         marginTop: '0',
       },
-      icon: {},
-      text: {},
+      icon: {
+        [`& ${StyledToolButtonInner}`]: {
+          display: 'grid',
+          '& > *': {
+            gridRow: 1,
+            gridColumn: 1,
+          },
+        },
+      },
+      text: {
+        width: 'auto',
+        [`& ${StyledToolButtonInner}`]: {
+          fontSize: '$1',
+          padding: '0 $3',
+          gap: '$3',
+        },
+      },
       circle: {},
     },
     isActive: {
@@ -85,6 +105,15 @@ export const StyledToolButton = styled('button', {
         },
         [`&:focus:not(:disabled) ${StyledToolButtonInner}`]: {
           backgroundColor: '$hover',
+        },
+      },
+    },
+    {
+      isActive: true,
+      css: {
+        [`${StyledToolButtonInner}`]: {
+          backgroundColor: '$selected',
+          color: '$selectedContrast',
         },
       },
     },

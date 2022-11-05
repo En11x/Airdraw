@@ -1,8 +1,8 @@
-import { Patch } from '~/types'
-import { deepCopy } from '~/utils/deepCopy'
-import { Utils } from '~/utils'
 import create, { UseBoundStore } from 'zustand'
 import createVanilla, { StoreApi } from 'zustand/vanilla'
+import { Command, Patch } from '~/types'
+import { Utils } from '~/utils'
+import { deepCopy } from '~/utils/deepCopy'
 
 export class StateManager<T extends Record<string, any>> {
   /**
@@ -65,7 +65,16 @@ export class StateManager<T extends Record<string, any>> {
     const next = Utils.deepMerge(this._state, patch)
     this._state = next
     this.store.setState(this._state, true)
+    console.log(this._state, 'state')
+    return this
+  }
 
+  /**
+   *  update state use command
+   * @returns
+   */
+  protected setState = (command: Command<T>, id = command.id) => {
+    this.applyPatch(command.after, id)
     return this
   }
 }

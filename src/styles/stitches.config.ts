@@ -11,6 +11,8 @@ const { createTheme, styled } = createStitches({
       text: '#33333',
       panelContrast: '#ffffff',
       hover: '#ececec',
+      selected: 'rgba(66, 133, 244, 1.000)',
+      selectedContrast: '#fefefe',
     },
     shadows: {
       2: '0px 1px 1px rgba(0, 0, 0, 0.14)',

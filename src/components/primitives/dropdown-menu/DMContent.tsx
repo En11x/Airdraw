@@ -1,8 +1,8 @@
-import { Portal, Content } from '@radix-ui/react-dropdown-menu'
+import { Content, Portal } from '@radix-ui/react-dropdown-menu'
 import { FC, PropsWithChildren } from 'react'
+import { stopPropagation } from '~/events'
 import { useContainer } from '~/hooks'
 import { styled } from '~/styles'
-import { stopPropagation } from '~/events'
 import { MenuContent } from '../menu-content'
 
 interface DMContentProps {
@@ -27,10 +27,8 @@ export const DMContent: FC<PropsWithChildren<DMContentProps>> = ({
 }) => {
   const container = useContainer()
 
-  console.log(container.current, align,alignOffset,sideOffset)
-
   return (
-    <Portal dir="ltr" container={overflow ? undefined : container.current}>
+    <Portal dir="ltr" container={container.current}>
       <Content
         asChild
         id={id}

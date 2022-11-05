@@ -10,6 +10,7 @@ export interface RowButtonProps {
   hasArrow?: boolean
   hasIndicator?: boolean
   kbd?: string
+  variant?: 'styleMenu'
 }
 
 export const RowButton = forwardRef<
@@ -17,11 +18,19 @@ export const RowButton = forwardRef<
   PropsWithChildren<RowButtonProps>
 >(
   (
-    { id, hasArrow = false, hasIndicator = false, kbd, children, ...rest },
+    {
+      id,
+      hasArrow = false,
+      hasIndicator = false,
+      kbd,
+      variant,
+      children,
+      ...rest
+    },
     ref
   ) => {
     return (
-      <StyledRowButton id={id} ref={ref} {...rest}>
+      <StyledRowButton id={id} ref={ref} variant={variant} {...rest}>
         <StyledRowButtonInner>
           {children}
           {kbd ? <Kbd variant="menu">{kbd}</Kbd> : undefined}
@@ -80,5 +89,12 @@ const StyledRowButton = styled('button', {
 
   [`&:focus:not(:disabled) ${StyledRowButtonInner}`]: {
     backgroundColor: '$hover',
+  },
+  variants: {
+    variant: {
+      styleMenu: {
+        margin: '$1 0 $1 0',
+      },
+    },
   },
 })
