@@ -4,6 +4,7 @@ import { useStylesheet } from '~/hooks/useStylesheet'
 import { AirCallbacks, AirdrawApp } from '~/state'
 import { AirdrawAppContext, ContainerContext, useAirdrawApp } from '../../hooks'
 import { dark, styled } from '../../styles'
+import { ContextMenu } from '../context-menu'
 import { ErrorFallback } from '../error-fallback'
 import { Renderer } from '../renderer'
 import { ToolsPanel } from '../tools-panel'
@@ -87,9 +88,11 @@ const Innerdraw = memo(function Innerdraw({
     <ContainerContext.Provider value={airWrapper}>
       <StyledLayout ref={airWrapper}>
         <OneOff />
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Renderer id={id} theme={theme} />
-        </ErrorBoundary>
+        <ContextMenu>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Renderer id={id} theme={theme} />
+          </ErrorBoundary>
+        </ContextMenu>
         <StyledUI>
           <TopPanel
             readonly={readonly}
@@ -121,6 +124,15 @@ const StyledLayout = styled('div', {
   overflow: 'hidden',
   boxSizing: 'border-box',
   outline: 'none',
+
+  '& .air-container': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+    zIndex: 1,
+  },
 })
 
 const StyledUI = styled('div', {
@@ -134,6 +146,10 @@ const StyledUI = styled('div', {
   display: 'flex',
   alignItems: 'flex-start',
   justifyContent: 'flex-start',
+  pointerEvents: 'none',
+  '& > *': {
+    pointerEvents: 'all',
+  },
 })
 
 const StyledSpacer = styled('div', {

@@ -12,6 +12,7 @@ export const MenuContent = styled('div', {
   borderRadius: '$3',
   border: '1px solid $panelContrast',
   boxShadow: '$panel',
+  zIndex: 99997,
   variants: {
     size: {
       small: {

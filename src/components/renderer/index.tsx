@@ -1,18 +1,30 @@
-import React from 'react'
+import { memo, useState } from 'react'
+import { AirdrawContext, AirdrawContextType } from '~/hooks/useAirdrawContext'
+import { Inputs } from '~/utils/input'
 import { useAirTheme } from '../../hooks'
-import { AirTheme } from '../../types'
+import { AirShape, AirTheme } from '../../types'
 import { Canvas } from '../canvas'
 
-interface RendererProps<T extends {}, M = any> {
+interface RendererProps<T extends AirShape, M = any> {
   id?: string
-  theme?:Partial<AirTheme>
+  theme?: Partial<AirTheme>
 }
 
-export const Renderer: React.FC<RendererProps<{}, Record<string, unknown>>> = ({
+function _Renderer<T extends AirShape, M extends Record<string, unknown>>({
   id = 'airdraw',
-  theme
-}) => {
-  useAirTheme(theme,'#'+id)
+  theme,
+}: RendererProps<T, M>) {
+  useAirTheme(theme, '#' + id)
 
-  return <Canvas id={id} />
+  const [context, setContext] = useState<AirdrawContextType<T>>(() => ({
+    inputs: new Inputs(),
+  }))
+
+  return (
+    <AirdrawContext.Provider value={context}>
+      <Canvas id={id} />
+    </AirdrawContext.Provider>
+  )
 }
+
+export const Renderer = memo(_Renderer)

@@ -87,3 +87,14 @@ export interface Command<T extends { [key: string]: any }> {
 export type AirdrawCommand = Command<AIRSnapshot>
 
 export type AirToolType = 'select' | ShapeType.Draw
+
+// renderer
+export interface AirShape {
+  id: string
+}
+
+//input
+export interface PointerInfo<T extends string = string> {
+  target: T
+  pointerId: number
+}
