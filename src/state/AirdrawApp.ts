@@ -1,4 +1,4 @@
-import { AIRSnapshot, ShapeStyles } from '~/types'
+import { AIRSnapshot, AirToolType, ShapeStyles } from '~/types'
 import * as Commands from './commands/index'
 import { defaultStyle } from './shared'
 import { StateManager } from './state-manager'
@@ -44,6 +44,7 @@ export class AirdrawApp extends StateManager<AIRSnapshot> {
     },
     appState: {
       currentStyle: defaultStyle,
+      activeTool: 'select',
     },
   }
 
@@ -74,5 +75,19 @@ export class AirdrawApp extends StateManager<AIRSnapshot> {
    */
   style = (style: Partial<ShapeStyles>): this => {
     return this.setState(Commands.styleShapes(this, [''], style))
+  }
+
+  /**
+   * select a tool
+   */
+  selectTool(type: AirToolType): this {
+    return this.patchState(
+      {
+        appState: {
+          activeTool: type,
+        },
+      },
+      `select_tool:${type}`
+    )
   }
 }

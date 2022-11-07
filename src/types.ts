@@ -24,12 +24,17 @@ export interface AIRSnapshot {
   }
   appState: {
     currentStyle: ShapeStyles
+    activeTool: AirToolType
   }
 }
 
 export type Theme = 'dark' | 'light'
 
 /**  shape style           */
+export enum ShapeType {
+  Draw = 'draw',
+}
+
 export enum ColorStyle {
   White = 'white',
   LightGray = 'lightGray',
@@ -80,3 +85,5 @@ export interface Command<T extends { [key: string]: any }> {
 }
 
 export type AirdrawCommand = Command<AIRSnapshot>
+
+export type AirToolType = 'select' | ShapeType.Draw
