@@ -4,6 +4,8 @@ export interface AirTheme {
 
 export type Patch<T> = Partial<{ [P in keyof T]: Patch<T[P]> }>
 
+export type AIRDockPosition = 'bottom' | 'left' | 'right' | 'top'
+
 export type ShapeStyles = {
   color: ColorStyle
   dash: DashStyle
@@ -18,6 +20,7 @@ export interface AIRSnapshot {
   settings: {
     isDarkMode: boolean
     keepStyleMenuOpen: boolean
+    dockPosition: AIRDockPosition
   }
   appState: {
     currentStyle: ShapeStyles

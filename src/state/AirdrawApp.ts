@@ -40,6 +40,7 @@ export class AirdrawApp extends StateManager<AIRSnapshot> {
     settings: {
       isDarkMode: false,
       keepStyleMenuOpen: false,
+      dockPosition: 'bottom',
     },
     appState: {
       currentStyle: defaultStyle,

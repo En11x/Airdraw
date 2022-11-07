@@ -1,12 +1,28 @@
 import { CursorArrowIcon, Pencil1Icon } from '@radix-ui/react-icons'
 import { memo } from 'react'
+import { useAirdrawApp } from '~/hooks'
 import { styled } from '~/styles'
+import { AIRSnapshot } from '~/types'
 import { Panel } from '../panel'
 import { ToolButtonWithTooltip } from '../tool-button'
 
+const dockPositionSelector = (a: AIRSnapshot) => a.settings.dockPosition
+
 export const PrimaryTools = memo(function PrimaryTools() {
+  const app = useAirdrawApp()
+
+  const dockPosition = app.useStore(dockPositionSelector)
+
   return (
-    <StyledPanel side="center">
+    <StyledPanel
+      side="center"
+      style={{
+        flexDirection:
+          dockPosition === 'bottom' || dockPosition === 'top'
+            ? 'row'
+            : 'column',
+      }}
+    >
       <ToolButtonWithTooltip label="Select" kbd="1">
         <CursorArrowIcon />
       </ToolButtonWithTooltip>
